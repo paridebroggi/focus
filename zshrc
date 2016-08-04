@@ -13,15 +13,14 @@ setopt prompt_subst
 #
 # Git infos
 # ---------
-function git_branch_name() {
-    git branch 2>/dev/null | awk '/^\*/ {print $2}'
-}
-
-function git_is_dirty {
-  if test "$(git status --porcelain 2>/dev/null)"; then
-   echo "%{$fg_bold[yellow]%}"
-  else
-   echo "%{$fg_bold[green]%}"
+function git_infos(){
+  if [ $(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then
+    branch=$(git branch 2>/dev/null | awk '/^\*/ {print $2}')
+    if test "$(git status --porcelain 2>/dev/null)"; then
+     echo "%{$fg_bold[yellow]%}$branch"
+    else
+     echo "%{$fg_bold[green]%}$branch"
+    fi
   fi
 }
 
@@ -29,7 +28,7 @@ function git_is_dirty {
 # Prompts
 # ---------#
 PROMPT="%{$fg_no_bold[magenta]%}$USERNAME[0,1]%{$fg_no_bold[white]%} %{$fg_no_bold[magenta]%}%m %{$fg_bold[cyan]%}%~%{$fg_no_bold[white]%} ∙ %{$reset_color%}"
-RPROMPT='$(git_is_dirty)$(git_branch_name)%{$reset_color%}'
+RPROMPT='$(git_infos)%{$reset_color%}'
 
 #
 # Aliases
