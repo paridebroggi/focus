@@ -2,7 +2,7 @@
 A minimal, fast and git-aware zsh prompt for Mac terminal.
 It is spartan and efficient: neither plugins nor fancy configurations needed. It just works out of the box.
 
-![](/screenshots/focus.jpg)
+![](screenshots/focus.jpg)
 
 # Install
 Just copy the `zshrc` file into your home directory and rename it to `.zshrc`
